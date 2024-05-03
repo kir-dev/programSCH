@@ -16,4 +16,48 @@ datasource db {
 model User {
   authSchId String @id
   email     String @unique
+  ownedEvents Event[]
+  organizedEvents Event[] @relation("organizers")
+  //TODO: Add more fields
+}
+
+enum Priority {
+  VERY_LOW
+  LOW
+  MEDIUM
+  HIGH
+  VERY_HIGH
+}
+
+enum Color {
+  RED
+  ORANGE
+  YELLOW
+  GREEN
+  BLUE
+  PURPLE
+  //TODO: Add more colors
+}
+
+enum Status {
+  CREATED
+  SUBMITTED
+  APPROVED
+}
+
+model Event {
+  id          Int @id @default(autoincrement())
+  name        String
+  description String?
+  date        DateTime
+  location    String
+  tags        String[]
+  messages    String[]
+  priority    Priority @default(MEDIUM)
+  color       Color @default(RED)
+  status      Status @default(CREATED)
+  ownerId     String
+  owner       User @relation(fields: [ownerId], references: [authSchId])
+  organizers  User[] @relation("organizers")
+  createdAt   DateTime @default(now())
 }
