@@ -16,4 +16,17 @@ datasource db {
 model User {
   authSchId String @id
   email     String @unique
+  name      String
+  nickname  String
+  phone     String
+  isAdmin   Boolean
+  ownedEvents Event[]
+  organizedEvents Event[] @relation("organizers")
+}
+
+model Event {
+  id         Int    @id @default(autoincrement())
+  ownerId    String
+  owner      User   @relation(fields: [ownerId], references: [authSchId])
+  organizers User[] @relation("organizers")
 }
