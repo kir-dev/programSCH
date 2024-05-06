@@ -62,5 +62,5 @@ model Event {
   ownerId     String
   owner       User @relation(fields: [ownerId], references: [authSchId])
   organizers  User[] @relation("organizers")
-  createdAt   DateTime @default(now()
+  createdAt   DateTime @default(now())
 }
