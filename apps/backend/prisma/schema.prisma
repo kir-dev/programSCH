@@ -25,11 +25,11 @@ model User {
 }
 
 enum Priority {
-  VERY_LOW //szint szintu
-  LOW //kajas nyitas
-  MEDIUM //kor szintu
-  HIGH //haz szintu
-  VERY_HIGH //top tier
+  SZINT
+  KAJAS
+  KOR
+  HAZ
+  EGYETEM
 }
 
 enum Color {
@@ -56,9 +56,9 @@ model Event {
   location    String
   tags        String[]
   messages    String[]
-  priority    Priority @default(MEDIUM)
-  color       Color    @default(RED)
-  status      Status   @default(CREATED)
+  priority    Priority @default(KOR)
+  color       Color @default(RED)
+  status      Status @default(CREATED)
   ownerId     String
   owner       User     @relation(fields: [ownerId], references: [authSchId])
   organizers  User[]   @relation("organizers")
