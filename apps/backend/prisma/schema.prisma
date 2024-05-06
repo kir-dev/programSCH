@@ -25,11 +25,11 @@ model User {
 }
 
 enum Priority {
-  VERY_LOW
-  LOW
-  MEDIUM
-  HIGH
-  VERY_HIGH
+  VERY_LOW //szint szintu
+  LOW //kajas nyitas
+  MEDIUM //kor szintu
+  HIGH //haz szintu
+  VERY_HIGH //top tier
 }
 
 enum Color {
@@ -63,4 +63,5 @@ model Event {
   owner       User     @relation(fields: [ownerId], references: [authSchId])
   organizers  User[]   @relation("organizers")
   createdAt   DateTime @default(now())
+  link        String?
 }
