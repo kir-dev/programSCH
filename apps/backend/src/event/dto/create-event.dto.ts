@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import { Event } from '../entity.event.entity';
+import { OmitType } from '@nestjs/swagger';
 
-export class CreateEventDto extends Event {}
+import { Event } from '../entity/event.entity';
+
+export class CreateEventDto extends OmitType(Event, ['id', 'messages', 'priority', 'owner', 'createdAt']) {}
