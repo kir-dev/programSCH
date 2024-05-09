@@ -25,6 +25,7 @@ model User {
 }
 
 enum Priority {
+  NONE
   SZINT
   KAJAS
   KOR
@@ -56,7 +57,7 @@ model Event {
   location    String
   tags        String[]
   messages    String[]
-  priority    Priority @default(KOR)
+  priority    Priority @default(NONE)
   color       Color @default(RED)
   status      Status @default(CREATED)
   ownerId     String
