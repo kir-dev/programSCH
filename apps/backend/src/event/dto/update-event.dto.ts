@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import { Event } from '../entity.event.entity';
+import { OmitType, PartialType } from '@nestjs/swagger';
 
-export class UpdateEventDto extends Event {}
+import { Event } from '../entity/event.entity';
+
+export class UpdateEventDto extends PartialType(OmitType(Event, ['id', 'owner', 'createdAt'])) {}

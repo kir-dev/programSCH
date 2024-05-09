@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
-import { Event } from '@prisma/client';
 
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -18,17 +17,17 @@ export class EventController {
   }
 
   @Get(':id')
-  getEventById(id: string): Event {
+  getEventById(id: string) {
     return this.eventService.getEventById(id);
   }
 
   @Patch(':id')
-  updateEvent(id: string, @Body() data: UpdateEventDto): Event {
+  updateEvent(id: string, @Body() data: UpdateEventDto) {
     return this.eventService.updateEvent(id, data);
   }
 
   @Delete(':id')
-  deleteEvent(id: string): Event {
+  deleteEvent(id: string) {
     return this.eventService.deleteEvent(id);
   }
 }
