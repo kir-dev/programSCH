@@ -6,6 +6,26 @@ import { PrismaService } from 'nestjs-prisma';
 export class EventService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async create(data: Prisma.EventCreateInput): Promise<Event> {
+    return await this.prisma.event.create({ data });
+  }
+
+  async findAll(): Promise<Event[]> {
+    try {
+      return await this.prisma.event.findMany();
+    } catch {
+      throw new NotFoundException(`Event not found`);
+    }
+  }
+
+  async findOne(id: string): Promise<Event> {
+    try {
+      return await this.prisma.event.findUnique({ where: { id: parseInt(id) } });
+    } catch {
+      throw new NotFoundException(`Event not found`);
+    }
+  }
+
   async update(id: string, data: Prisma.EventUpdateInput): Promise<Event> {
     try {
       return this.prisma.event.update({ where: { id }, data });
