@@ -20,6 +20,21 @@ export class EventController {
     return this.eventService.findOne(id);
   }
 
+  @Post()
+  create(@Body() data: Prisma.EventCreateInput) {
+    return this.eventService.create(data);
+  }
+
+  @Get()
+  findAll() {
+    return this.eventService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.eventService.findOne(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() data: Prisma.EventUpdateInput) {
     return this.eventService.update(id, data);
