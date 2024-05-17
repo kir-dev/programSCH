@@ -14,13 +14,13 @@ datasource db {
 }
 
 model User {
-  authSchId String @id
-  email     String @unique
-  name      String
-  nickname  String
-  phone     String
-  isAdmin   Boolean
-  ownedEvents Event[]
+  authSchId       String  @id
+  email           String  @unique
+  name            String
+  nickname        String
+  phone           String
+  isAdmin         Boolean
+  ownedEvents     Event[]
   organizedEvents Event[] @relation("organizers")
 }
 
@@ -57,10 +57,10 @@ model Event {
   tags        String[]
   messages    String[]
   priority    Priority @default(MEDIUM)
-  color       Color @default(RED)
-  status      Status @default(CREATED)
+  color       Color    @default(RED)
+  status      Status   @default(CREATED)
   ownerId     String
-  owner       User @relation(fields: [ownerId], references: [authSchId])
-  organizers  User[] @relation("organizers")
+  owner       User     @relation(fields: [ownerId], references: [authSchId])
+  organizers  User[]   @relation("organizers")
   createdAt   DateTime @default(now())
 }
