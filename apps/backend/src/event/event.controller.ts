@@ -6,10 +6,12 @@ import { EventService } from './event.service';
 @Controller('events')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
+
   @Post()
   create(@Body() data: Prisma.EventCreateInput) {
     return this.eventService.create(data);
   }
+
   @Get()
   findAll() {
     return this.eventService.findAll();
