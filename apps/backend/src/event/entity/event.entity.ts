@@ -59,13 +59,6 @@ export class Event {
   @IsNotEmpty()
   status: Status;
 
-  @IsString()
-  @IsNotEmpty()
-  owner: string; //TODO: change to User
-
-  @IsString({ each: true })
-  organizers: string[]; //TODO: change to User[]
-
   @IsDate()
   createdAt: Date;
 
