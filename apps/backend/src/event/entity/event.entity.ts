@@ -59,6 +59,10 @@ export class Event {
   @IsNotEmpty()
   status: Status;
 
+  @IsString()
+  @IsNotEmpty()
+  ownerId: string;
+
   @IsDate()
   createdAt: Date;
 
