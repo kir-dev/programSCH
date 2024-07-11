@@ -19,7 +19,7 @@ model User {
   name            String
   nickname        String
   phone           String
-  isAdmin         Boolean
+  isAdmin         Boolean @default(false)
   ownedEvents     Event[]
   organizedEvents Event[] @relation("organizers")
 }
