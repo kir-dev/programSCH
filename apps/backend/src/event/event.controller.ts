@@ -14,6 +14,8 @@ export class EventController {
     return this.eventService.create(data);
   }
 
+  //modositas
+
   @Get()
   findAll() {
     return this.eventService.findAll();
