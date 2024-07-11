@@ -25,12 +25,12 @@ model User {
 }
 
 enum Priority {
-  NOTGIVEN
   SZINT
   KAJAS
   KOR
   HAZ
   EGYETEM
+  NOTGIVEN
 }
 
 enum Color {
