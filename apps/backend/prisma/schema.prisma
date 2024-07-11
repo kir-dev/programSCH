@@ -57,7 +57,7 @@ model Event {
   location    String
   tags        String[]
   messages    String[]
-  priority    String
+  priority    Priority @default(NOTGIVEN)
   color       Color    @default(RED)
   status      Status   @default(CREATED)
   ownerId     String
