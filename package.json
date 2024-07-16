@@ -32,6 +32,7 @@
     "apps/*"
   ],
   "dependencies": {
+    "@nestjs/config": "^3.2.3",
     "@nestjs/mapped-types": "*",
     "nestjs-prisma": "^0.23.0"
   }
