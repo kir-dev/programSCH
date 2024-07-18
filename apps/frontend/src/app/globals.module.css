@@ -1,0 +1,36 @@
+.body {
+  font-family: Montserrat, sans-serif;
+  background-color: #7eb397;
+  margin: 0;
+}
+
+.navbar {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #7eb397;
+  border-bottom: 4px solid #18633d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-container {
+  font-weight: 500;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.links-container {
+  margin-right: 10px;
+}
+
+.link a {
+  text-decoration: none;
+  color: #141414;
+  font-weight: 700;
+  font-size: 30px;
+}
