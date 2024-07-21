@@ -1,30 +1,6 @@
 import { Color, Priority, Status } from '@prisma/client';
 import { IsDate, IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-/*export enum Relevance {
-  NOTGIVEN = 'NOTGIVEN',
-  SZINT = 'SZINT',
-  KAJAS = 'KAJAS',
-  KOR = 'KOR',
-  HAZ = 'HAZ',
-  EGYETEM = 'EGYETEM',
-}
-
-export enum Color {
-  RED = 'RED',
-  ORANGE = 'ORANGE',
-  YELLOW = 'YELLOW',
-  GREEN = 'GREEN',
-  BLUE = 'BLUE',
-  PURPLE = 'PURPLE',
-}
-
-export enum Status {
-  CREATED = 'CREATED',
-  SUBMITTED = 'SUBMITTED',
-  APPROVED = 'APPROVED',
-}*/
-
 export class Event {
   @IsString()
   @IsNotEmpty()
