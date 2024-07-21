@@ -1,14 +1,16 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
-@Controller()
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() data: Prisma.UserCreateInput) {
+  create(@Body() data: CreateUserDto): Promise<User> {
     return this.usersService.create(data);
   }
 
@@ -23,12 +25,12 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.usersService.update(id);
+  update(@Param('id') id: string, @Body() data: UpdateUserDto) {
+    return this.usersService.update(id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  delete(@Param('id') id: string) {
+    return this.usersService.delete(id);
   }
 }

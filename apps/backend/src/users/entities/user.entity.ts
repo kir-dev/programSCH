@@ -13,12 +13,14 @@ export class User {
   @IsNotEmpty()
   name: string;
 
+  @IsString()
+  @IsNotEmpty()
   nickname: string;
+
+  @IsString()
+  @IsNotEmpty()
   phone: string;
 
   @IsBoolean()
   isAdmin: boolean;
-
-  ownedEvents: Event[];
-  organizedEvents: Event[];
 }

@@ -19,18 +19,18 @@ model User {
   name            String
   nickname        String
   phone           String
-  isAdmin         Boolean
+  isAdmin         Boolean @default(false)
   ownedEvents     Event[]
   organizedEvents Event[] @relation("organizers")
 }
 
 enum Priority {
-  NONE
   SZINT
   KAJAS
   KOR
   HAZ
   EGYETEM
+  NOTGIVEN
 }
 
 enum Color {
@@ -40,7 +40,7 @@ enum Color {
   GREEN
   BLUE
   PURPLE
-  //TODO: Add more colors
+  // TODO: Add more colors
 }
 
 enum Status {
@@ -57,9 +57,9 @@ model Event {
   location    String
   tags        String[]
   messages    String[]
-  priority    Priority @default(NONE)
-  color       Color @default(RED)
-  status      Status @default(CREATED)
+  priority    Priority @default(NOTGIVEN)
+  color       Color    @default(RED)
+  status      Status   @default(CREATED)
   ownerId     String
   owner       User     @relation(fields: [ownerId], references: [authSchId])
   organizers  User[]   @relation("organizers")
