@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 import Navbar from '@/components/navbar';
+import { EventPage } from '@/pages/event/EventPage';
 
 /*const inter = Inter({ subsets: ['latin'] });*/
 
@@ -20,7 +21,8 @@ export default function RootLayout({
     <html lang='hu'>
       <body className='m-0'>
         <Navbar />
-        {children}
+        {/*{children}*/}
+        <EventPage />
       </body>
     </html>
   );

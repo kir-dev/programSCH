@@ -27,6 +27,11 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      colors: {
+        'dark-green': '#18633d',
+        'light-green': '#7eb397',
+        'text-black': '#141414',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
