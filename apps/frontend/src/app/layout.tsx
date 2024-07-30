@@ -3,7 +3,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 import Navbar from '@/components/navbar';
-import { EventPage } from '@/pages/event/EventPage';
+import { EventDetailsPage } from '@/pages/event/EventDetailsPage';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from '@/app/page';
 
 /*const inter = Inter({ subsets: ['latin'] });*/
 
@@ -21,8 +24,15 @@ export default function RootLayout({
     <html lang='hu'>
       <body className='m-0'>
         <Navbar />
-        {/*{children}*/}
-        <EventPage />
+        <Routes>
+          <Route path='/'>
+            <Route index element={<Home />} />
+            <Route path='/event/'>
+              <Route index element={<Home />} />
+              <Route path=':eventId' element={<EventDetailsPage />} />
+            </Route>
+          </Route>
+        </Routes>
       </body>
     </html>
   );

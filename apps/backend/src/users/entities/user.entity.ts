@@ -1,6 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
-export class User {
+export class UserEntity {
   @IsString()
   @IsNotEmpty()
   authSchId: string;
