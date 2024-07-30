@@ -32,8 +32,13 @@ export class EventService {
   async update(id: string, data: UpdateEventDto): Promise<Event> {
     try {
       return await this.prisma.event.update({ where: { id }, data });
-    } catch {
-      throw new NotFoundException(`Event not found`);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(`Event not found`);
+      }
+      if (error instanceof BadRequestException) {
+        throw new BadRequestException(`Invalid data`);
+      }
     }
   }
 

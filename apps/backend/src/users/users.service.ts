@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { PrismaService } from 'nestjs-prisma';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -32,8 +33,13 @@ export class UsersService {
   async update(id: string, data: UpdateUserDto): Promise<User> {
     try {
       return await this.prisma.user.update({ where: { authSchId: id }, data });
-    } catch {
-      throw new NotFoundException(`User not found`);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(`User not found`);
+      }
+      if (error instanceof PrismaClientValidationError) {
+        throw new BadRequestException(`Invalid data`);
+      }
     }
   }
 
