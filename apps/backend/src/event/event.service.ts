@@ -4,6 +4,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './entity/event.entity';
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class EventService {
@@ -12,8 +13,11 @@ export class EventService {
   async create(data: CreateEventDto): Promise<Event> {
     try {
       return await this.prisma.event.create({ data });
-    } catch {
-      throw new BadRequestException('Invalid event id');
+    } catch (error) {
+      if (error instanceof PrismaClientValidationError) {
+        throw new BadRequestException(`Invalid data`);
+      }
+      throw error;
     }
   }
 
@@ -33,12 +37,13 @@ export class EventService {
     try {
       return await this.prisma.event.update({ where: { id }, data });
     } catch (error) {
-      if (error instanceof NotFoundException) {
+      if (error instanceof PrismaClientKnownRequestError) {
         throw new NotFoundException(`Event not found`);
       }
-      if (error instanceof BadRequestException) {
+      if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(`Invalid data`);
       }
+      throw error;
     }
   }
 
