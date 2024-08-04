@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { PrismaService } from 'nestjs-prisma';
 
 import { CreateEventDto } from './dto/create-event.dto';
@@ -13,8 +14,11 @@ export class EventService {
   async create(data: CreateEventDto): Promise<Event> {
     try {
       return await this.prisma.event.create({ data });
-    } catch {
-      throw new BadRequestException('Invalid event id');
+    } catch (error) {
+      if (error instanceof PrismaClientValidationError) {
+        throw new BadRequestException(`Invalid data`);
+      }
+      throw error;
     }
   }
 
@@ -39,8 +43,14 @@ export class EventService {
   async update(id: string, data: UpdateEventDto): Promise<Event> {
     try {
       return await this.prisma.event.update({ where: { id }, data });
-    } catch {
-      throw new NotFoundException(`Event not found`);
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new NotFoundException(`Event not found`);
+      }
+      if (error instanceof PrismaClientValidationError) {
+        throw new BadRequestException(`Invalid data`);
+      }
+      throw error;
     }
   }
 
