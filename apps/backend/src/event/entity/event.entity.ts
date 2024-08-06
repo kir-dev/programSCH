@@ -1,28 +1,5 @@
-import { IsDate, IsNotEmpty, IsString, IsUUID } from 'class-validator';
-
-export enum Priority {
-  NONE = 'NONE',
-  SZINT = 'SZINT',
-  KAJAS = 'KAJAS',
-  KOR = 'KOR',
-  HAZ = 'HAZ',
-  EGYETEM = 'EGYETEM',
-}
-
-export enum Color {
-  RED = 'RED',
-  ORANGE = 'ORANGE',
-  YELLOW = 'YELLOW',
-  GREEN = 'GREEN',
-  BLUE = 'BLUE',
-  PURPLE = 'PURPLE',
-}
-
-export enum Status {
-  CREATED = 'CREATED',
-  SUBMITTED = 'SUBMITTED',
-  APPROVED = 'APPROVED',
-}
+import { Color, Priority, Status } from '@prisma/client';
+import { IsDate, IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class Event {
   @IsString()
@@ -51,6 +28,7 @@ export class Event {
   messages: string[];
 
   @IsNotEmpty()
+  @IsEnum(Priority)
   priority: Priority;
 
   @IsNotEmpty()
@@ -61,10 +39,7 @@ export class Event {
 
   @IsString()
   @IsNotEmpty()
-  owner: string; //TODO: change to User
-
-  @IsString({ each: true })
-  organizers: string[]; //TODO: change to User[]
+  ownerId: string;
 
   @IsDate()
   createdAt: Date;
