@@ -12,8 +12,18 @@ export class EventService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateEventDto): Promise<Event> {
+    const { ownerId, ...restOfData } = data;
     try {
-      return await this.prisma.event.create({ data });
+      return await this.prisma.event.create({
+        data: {
+          ...restOfData,
+          owner: {
+            connect: {
+              authSchId: ownerId,
+            },
+          },
+        },
+      });
     } catch (error) {
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(`Invalid data`);

@@ -13,6 +13,15 @@ export enum Status {
   APPROVED,
 }
 
+export enum Color {
+  RED = 'RED',
+  ORANGE = 'ORANGE',
+  YELLOW = 'YELLOW',
+  GREEN = 'GREEN',
+  BLUE = 'BLUE',
+  PURPLE = 'PURPLE',
+}
+
 export type EventModel = {
   id: string;
   name: string;
@@ -22,7 +31,7 @@ export type EventModel = {
   tags: string[];
   messages: string[]; //TODO külön reláció a kommenteknek?
   priority: Priority;
-  color: string;
+  color: Color;
   status: Status;
   createdAt?: string;
   link?: string;

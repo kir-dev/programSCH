@@ -9,7 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from '@/app/page';
 
 /*const inter = Inter({ subsets: ['latin'] });*/
-import NewEvent from '@/pages/newEvent';
+import NewEvent from '@/pages/event/newEvent';
 
 export const metadata: Metadata = {
   title: 'ProgramSCH',
@@ -28,7 +28,7 @@ export default function RootLayout({
         <Routes>
           <Route path='/'>
             <Route index element={<Home />} />
-            <Route path='/event/'>
+            <Route path='/events/'>
               <Route index element={<Home />} />
               <Route path='new' element={<NewEvent />} />
               <Route path=':eventId' element={<EventDetailsPage />} />
