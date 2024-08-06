@@ -17,6 +17,9 @@ export class UsersService {
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException('Invalid User data');
       }
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') throw new BadRequestException(`Invalid User data: email already in use`);
+      }
       throw error;
     }
   }
@@ -38,7 +41,8 @@ export class UsersService {
       return await this.prisma.user.update({ where: { authSchId: id }, data });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        throw new NotFoundException(`User not found`);
+        if (error.code === 'P2002') throw new BadRequestException(`Invalid data: email already in use`);
+        if (error.code === 'P2025') throw new NotFoundException(`User not found`);
       }
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(`Invalid data`);
