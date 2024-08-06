@@ -2,6 +2,8 @@ import Image from 'next/image';
 
 import styles from '@/app/globals.module.css';
 
+import Icon from './icon';
+
 function Navbar() {
   return (
     <nav className={styles.navbar}>
@@ -9,14 +11,14 @@ function Navbar() {
         <div className={styles['logo-container']}>
           <Image src='/logo.png' alt='Logo' width={50} height={50} title='by KirDev' />
         </div>
-        <div className={styles['link']}>
-          <a href='/' title='Kezdőlap'>
+        <div className='font-bold text-3xl no-underline text-gray-900 text-center mt-1'>
+          <a href='/home' title='Kezdőlap'>
             ProgramSCH
           </a>
         </div>
       </div>
       <div className='flex'>
-        <Icon href='' src='/new.png' alt='Új' title='Új esemény' />
+        <Icon href='./pages/newEvent.tsx' src='/new.png' alt='Új' title='Új esemény' />
         <Icon href='' src='/profile.png' alt='Profil' title='Profil' />
       </div>
     </nav>
@@ -24,20 +26,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-type IconProps = {
-  src: string;
-  href: string;
-  title: string;
-  alt: string;
-};
-
-function Icon(props: IconProps) {
-  return (
-    <div className={styles['link']}>
-      <a href={props.href}>
-        <Image src={props.src} alt={props.alt} width={50} height={50} title={props.title} />
-      </a>
-    </div>
-  );
-}
