@@ -6,7 +6,7 @@ export default function newEvent() {
   return (
     <div>
       <div>
-        <div className='items-center rounded-2xl border-4 border-dark-green ml-2.5 mt-4 w-80 text-2xl text-center bg-light-green p-2'>
+        <div className='items-center rounded-2xl border-2 border-dark-green ml-2.5 mt-4 w-1/4 text-2xl text-center font-semibold bg-light-green p-2'>
           Event létrehozása
         </div>
         <div style={styles.AlignStyle}>
