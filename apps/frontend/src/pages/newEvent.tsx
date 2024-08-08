@@ -1,3 +1,5 @@
+import Button from '@/components/button';
+import Input from '@/components/input';
 import { styles } from '@/components/newEventStyles';
 
 export default function newEvent() {
@@ -10,9 +12,7 @@ export default function newEvent() {
         <div style={styles.AlignStyle}>
           <div style={styles.StickerStyle}>
             Név:
-            <div className='w-3/4'>
-              <input id='name' placeholder='Gólyakocsma...' style={styles.InputStyle} />
-            </div>
+            <Input id='name' placeholder='Gólyakocsma...' />
           </div>
           <div style={styles.StickerStyle} className='p-3'>
             Szín:
@@ -21,29 +21,21 @@ export default function newEvent() {
         <div style={styles.AlignStyle}>
           <div style={styles.StickerStyle}>
             Helyszín:
-            <div className='w-3/4'>
-              <input id='place' placeholder='SCH FNT...' style={styles.InputStyle} />
-            </div>
+            <Input id='place' placeholder='SCH FNT...' />
           </div>
           <div style={styles.StickerStyle}>
             Tagek:
-            <div className='w-3/4'>
-              <input id='tags' placeholder='#gólyák, ...' style={styles.InputStyle} />
-            </div>
+            <Input id='tags' placeholder='#gólyák, ...' />
           </div>
         </div>
         <div style={styles.AlignStyle}>
           <div style={styles.StickerStyle}>
             Időpont:
-            <div className='w-3/4'>
-              <input id='time' placeholder='éééé.hh.nn. óó:pp' style={styles.InputStyle} />
-            </div>
+            <Input id='time' placeholder='éééé.hh.nn. óó:pp' />
           </div>
           <div style={styles.StickerStyle}>
             Szervezők:
-            <div className='w-3/4'>
-              <input id='organizers' placeholder='Kir Dev, ...' style={styles.InputStyle} />
-            </div>
+            <Input id='organizers' placeholder='Kir Dev, ...' />
           </div>
         </div>
         <div className='rounded-2xl border-2 border-dark-green ml-10 mt-6 w-11/12 text-xl bg-light-green p-2 pl-3 h-64'>
@@ -53,12 +45,8 @@ export default function newEvent() {
           </div>
         </div>
         <div className='flex justify-between ml-10 mt-7 w-11/12'>
-          <div className='rounded-2xl border-4 border-dark-green text-xl bg-light-green p-2 w-60 text-center'>
-            <button type='button'>Piszkozat mentése</button>
-          </div>
-          <div className='rounded-2xl border-4 border-dark-green text-xl bg-light-green p-2 w-60 text-center'>
-            <button type='button'>Létrehozás</button>
-          </div>
+          <Button type='button' label='Piszkozat mentése' />
+          <Button type='button' label='Létrehozás' />
         </div>
       </div>
     </div>
