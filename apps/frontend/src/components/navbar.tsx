@@ -18,7 +18,7 @@ function Navbar() {
         </div>
       </div>
       <div className='flex'>
-        <Icon href='./pages/newEvent.tsx' src='/new.png' alt='Új' title='Új esemény' />
+        <Icon href='/newEvent' src='/new.png' alt='Új' title='Új esemény' />
         <Icon href='' src='/profile.png' alt='Profil' title='Profil' />
       </div>
     </nav>
