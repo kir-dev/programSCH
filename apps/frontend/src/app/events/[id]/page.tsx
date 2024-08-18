@@ -6,9 +6,13 @@ import { useFetchEventDetailsQuery } from '@/api/hooks/eventQueryHooks';
 import Home from '@/app/page';
 
 export default function EventDetailsPage({ params }: { params: { id: string } }) {
-  const { data: event } = useFetchEventDetailsQuery(params.id!);
+  const { data: event, error: e } = useFetchEventDetailsQuery(params.id!);
 
-  if (!params.id) {
+  /*if (e) {
+    throw e;
+  }*/
+
+  if (!event) {
     return <Home />;
   }
 
