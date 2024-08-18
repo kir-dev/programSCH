@@ -1,8 +1,11 @@
 import './globals.css';
 
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 
 import Navbar from '@/components/navbar';
+import { queryClient } from '@/util/query-client';
 
 export const metadata: Metadata = {
   title: 'ProgramSCH',
@@ -17,8 +20,11 @@ export default function RootLayout({
   return (
     <html lang='hu'>
       <body>
-        <Navbar />
-        {children}
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          {children}
+          <ReactQueryDevtools />
+        </QueryClientProvider>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { EventModel } from '@/api/model/event.model';
-import { CreateEvent } from '@/pages/event/types/createEvent';
+import { CreateEvent } from '@/app/events/types/createEvent';
 
 const url = 'http://localhost:3001';
 

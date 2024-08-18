@@ -1,8 +1,57 @@
+'use client';
+import { redirect } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+
+import { useCreateEventMutation } from '@/api/hooks/eventMutationHooks';
+import { Color, EventModel, Status } from '@/api/model/event.model';
+import { CreateEvent, CreateEventForm } from '@/app/events/types/createEvent';
 import Button from '@/components/button';
 import Input from '@/components/input';
 import { styles } from '@/components/newEventStyles';
 
 export default function newEvent() {
+  /*const { mutate: createEvent } = useCreateEventMutation();
+  const publishEvent = (formData: CreateEvent) => {
+    createEvent(formData, {
+      onSuccess: (event: EventModel) => {
+        redirect(`http://localhost:3000/events/${event.id}`);
+      },
+    });
+  };
+
+  const form = useForm<CreateEventForm>({
+    defaultValues: {
+      tags: [],
+      date: new Date(),
+      color: Color.RED,
+    },
+    mode: 'all',
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    resetField,
+    formState: { errors, isValid, isSubmitted },
+  } = form;
+
+  const onSubmit = handleSubmit((data: CreateEventForm) => {
+    const formData: CreateEvent = {
+      name: data.name,
+      description: data.description,
+      date: data.date,
+      location: data.location,
+      tags: data.tags,
+      color: data.color,
+      link: data.link,
+      ownerId: 'bearni03',
+      status: Status.SUBMITTED,
+    };
+    publishEvent(formData);
+  });*/
+
   return (
     <div>
       <div>

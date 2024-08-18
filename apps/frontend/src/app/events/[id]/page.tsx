@@ -1,15 +1,14 @@
+'use client';
 import { FaLocationDot } from 'react-icons/fa6';
 import { MdOutlineDateRange, MdPeople } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
 
 import { useFetchEventDetailsQuery } from '@/api/hooks/eventQueryHooks';
 import Home from '@/app/page';
 
-export const EventDetailsPage = () => {
-  const { eventId } = useParams();
-  const { data: event } = useFetchEventDetailsQuery(eventId!);
+export default function EventDetailsPage({ params }: { params: { id: string } }) {
+  const { data: event } = useFetchEventDetailsQuery(params.id!);
 
-  if (!eventId) {
+  if (!params.id) {
     return <Home />;
   }
 
@@ -61,4 +60,4 @@ export const EventDetailsPage = () => {
       </div>
     </div>
   );
-};
+}

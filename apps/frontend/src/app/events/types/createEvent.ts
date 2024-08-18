@@ -1,5 +1,5 @@
 import { Color, Status } from '@/api/model/event.model';
-import { PublicUser } from '@/pages/user/types/PublicUser';
+import { PublicUser } from '@/app/users/types/PublicUser';
 
 export interface CreateEvent {
   name: string;
