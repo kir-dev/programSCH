@@ -11,11 +11,24 @@ export class EventService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateEventDto): Promise<Event> {
+    const { ownerId, ...restOfData } = data;
     try {
-      return await this.prisma.event.create({ data });
+      return await this.prisma.event.create({
+        data: {
+          ...restOfData,
+          owner: {
+            connect: {
+              authSchId: ownerId,
+            },
+          },
+        },
+      });
     } catch (error) {
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(`Invalid data`);
+      }
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') throw new BadRequestException(`Invalid data: user not found`);
       }
       throw error;
     }
@@ -38,7 +51,8 @@ export class EventService {
       return await this.prisma.event.update({ where: { id }, data });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        throw new NotFoundException(`Event not found`);
+        if (error.code === 'P2002') throw new BadRequestException(`Invalid data: user not found`);
+        if (error.code === 'P2025') throw new NotFoundException(`Event not found`);
       }
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(`Invalid data`);
