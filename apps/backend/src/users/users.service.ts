@@ -4,13 +4,13 @@ import { PrismaService } from 'nestjs-prisma';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateUserDto): Promise<User> {
+  async create(data: CreateUserDto): Promise<UserEntity> {
     try {
       return await this.prisma.user.create({ data });
     } catch (error) {
@@ -24,11 +24,11 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserEntity[]> {
     return this.prisma.user.findMany();
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: string): Promise<UserEntity> {
     const user = await this.prisma.user.findUnique({ where: { authSchId: id } });
     if (user === null) {
       throw new NotFoundException('User not found');
@@ -36,7 +36,7 @@ export class UsersService {
     return user;
   }
 
-  async update(id: string, data: UpdateUserDto): Promise<User> {
+  async update(id: string, data: UpdateUserDto): Promise<UserEntity> {
     try {
       return await this.prisma.user.update({ where: { authSchId: id }, data });
     } catch (error) {
@@ -51,7 +51,7 @@ export class UsersService {
     }
   }
 
-  async delete(id: string): Promise<User> {
+  async delete(id: string): Promise<UserEntity> {
     try {
       return await this.prisma.user.delete({ where: { authSchId: id } });
     } catch {
