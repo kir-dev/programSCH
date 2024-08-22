@@ -1,6 +1,6 @@
 'use client';
 import { FaLocationDot } from 'react-icons/fa6';
-import { MdOutlineDateRange, MdPeople } from 'react-icons/md';
+import { MdLink, MdOutlineDateRange, MdPeople } from 'react-icons/md';
 
 import { useFetchEventDetailsQuery } from '@/api/hooks/eventQueryHooks';
 import Home from '@/app/page';
@@ -49,6 +49,10 @@ export default function EventDetailsPage({ params }: { params: { id: string } })
             return <li key={organizer.authSchId}>{organizer?.name}</li>;
           })}
         </ul>
+        <div className='flex p-2 space-x-2 text-xl'>
+          <MdLink className='fill-dark-green' size={25} />
+          <p>{event?.link}</p>
+        </div>
       </div>
       <div className='relative top-40 space-y-2 left-0 w-max p-10'>
         <div>
