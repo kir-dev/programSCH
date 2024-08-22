@@ -8,9 +8,9 @@ import Home from '@/app/page';
 export default function EventDetailsPage({ params }: { params: { id: string } }) {
   const { data: event, error: e } = useFetchEventDetailsQuery(params.id!);
 
-  /*if (e) {
+  if (e) {
     throw e;
-  }*/
+  }
 
   if (!event) {
     return <Home />;
@@ -35,7 +35,7 @@ export default function EventDetailsPage({ params }: { params: { id: string } })
           {event?.tags?.map((tag, index) => {
             return (
               <div key={index} className='text-center w-20 border-2 border-text-black' style={{ background: 'grey' }}>
-                tag1
+                {tag}
               </div>
             );
           })}

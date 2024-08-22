@@ -9,6 +9,6 @@ const url = 'http://localhost:3001';
 export const useFetchEventDetailsQuery = (eventId: string) => {
   return useQuery<EventDetails>({
     queryKey: ['fetchEventDetails', eventId],
-    queryFn: async () => (await axios.get(`${url}/events/${eventId}`)).data,
+    queryFn: async () => (await axios.get<EventDetails>(`http://localhost:3001/events/${eventId}`)).data,
   });
 };
