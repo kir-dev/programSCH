@@ -4,16 +4,29 @@ import { useForm } from 'react-hook-form';
 import { useCreateEventMutation } from '@/api/hooks/eventMutationHooks';
 import { Color, EventModel, Status } from '@/api/model/event.model';
 import { CreateEvent, CreateEventForm } from '@/app/events/types/createEvent';
-import Button from '@/components/button';
-import Input from '@/components/input';
 import { styles } from '@/components/newEventStyles';
+import { FRONTEND_HOST } from '@/util/environment';
+
+import {
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Text,
+  useToast,
+  VStack,
+  Stack,
+} from '@chakra-ui/react';
 
 export default function newEvent() {
-  /*const { mutate: createEvent } = useCreateEventMutation();
+  const { mutate: createEvent } = useCreateEventMutation();
   const publishEvent = (formData: CreateEvent) => {
     createEvent(formData, {
       onSuccess: (event: EventModel) => {
-        redirect(`http://localhost:3000/events/${event.id}`);
+        redirect(`${FRONTEND_HOST}/events/${event.id}`);
       },
     });
   };
@@ -49,7 +62,7 @@ export default function newEvent() {
       status: Status.SUBMITTED,
     };
     publishEvent(formData);
-  });*/
+  });
 
   return (
     <div>
@@ -58,10 +71,12 @@ export default function newEvent() {
           Event létrehozása
         </div>
         <div style={styles.AlignStyle}>
-          <div style={styles.StickerStyle}>
-            Név:
-            <Input id='name' placeholder='Gólyakocsma...' />
-          </div>
+          <FormControl>
+            <div style={styles.StickerStyle}>
+              Név:
+              <Input id='name' placeholder='Gólyakocsma...' />
+            </div>
+          </FormControl>
           <div style={styles.StickerStyle} className='p-3'>
             Szín:
           </div>
@@ -93,8 +108,8 @@ export default function newEvent() {
           </div>
         </div>
         <div className='flex justify-between ml-10 mt-7 w-11/12'>
-          <Button type='button' label='Piszkozat mentése' />
-          <Button type='button' label='Létrehozás' />
+          <Button type='button'>Piszkozat mentése</Button>
+          <Button type='button'>Létrehozás </Button>
         </div>
       </div>
     </div>
