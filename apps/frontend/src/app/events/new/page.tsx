@@ -1,3 +1,17 @@
+import {
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Select,
+  Stack,
+  Text,
+  useToast,
+  VStack,
+} from '@chakra-ui/react';
 import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
@@ -6,20 +20,6 @@ import { Color, EventModel, Status } from '@/api/model/event.model';
 import { CreateEvent, CreateEventForm } from '@/app/events/types/createEvent';
 import { styles } from '@/components/newEventStyles';
 import { FRONTEND_HOST } from '@/util/environment';
-
-import {
-  Button,
-  Checkbox,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Text,
-  useToast,
-  VStack,
-  Stack,
-} from '@chakra-ui/react';
 
 export default function newEvent() {
   const { mutate: createEvent } = useCreateEventMutation();
@@ -74,7 +74,15 @@ export default function newEvent() {
           <FormControl>
             <div style={styles.StickerStyle}>
               Név:
-              <Input id='name' placeholder='Gólyakocsma...' />
+              <Input
+                type='text'
+                {...register('name', {
+                  required: { value: true, message: 'Név megadása kötelező!' },
+                  maxLength: { value: 100, message: 'Név túl hosszú!' },
+                })}
+                placeholder='Gólyakocsma...'
+              />
+              {errors.name && <FormErrorMessage>{errors.name.message}</FormErrorMessage>}
             </div>
           </FormControl>
           <div style={styles.StickerStyle} className='p-3'>
