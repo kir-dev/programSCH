@@ -1,3 +1,4 @@
+'use client';
 import {
   Button,
   Checkbox,
@@ -13,13 +14,13 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { redirect } from 'next/navigation';
-import { useForm } from 'react-hook-form';
 
 import { useCreateEventMutation } from '@/api/hooks/eventMutationHooks';
 import { Color, EventModel, Status } from '@/api/model/event.model';
 import { CreateEvent, CreateEventForm } from '@/app/events/types/createEvent';
 import { styles } from '@/components/newEventStyles';
 import { FRONTEND_HOST } from '@/util/environment';
+import { useForm } from 'react-hook-form';
 
 export default function newEvent() {
   const { mutate: createEvent } = useCreateEventMutation();
@@ -71,11 +72,12 @@ export default function newEvent() {
           Event létrehozása
         </div>
         <div style={styles.AlignStyle}>
-          <FormControl>
-            <div style={styles.StickerStyle}>
-              Név:
+          <div style={styles.StickerStyle}>
+            Név:
+            <FormControl>
               <Input
                 type='text'
+                style={styles.InputStyle}
                 {...register('name', {
                   required: { value: true, message: 'Név megadása kötelező!' },
                   maxLength: { value: 100, message: 'Név túl hosszú!' },
@@ -83,8 +85,9 @@ export default function newEvent() {
                 placeholder='Gólyakocsma...'
               />
               {errors.name && <FormErrorMessage>{errors.name.message}</FormErrorMessage>}
-            </div>
-          </FormControl>
+            </FormControl>
+          </div>
+
           <div style={styles.StickerStyle} className='p-3'>
             Szín:
           </div>
@@ -92,7 +95,18 @@ export default function newEvent() {
         <div style={styles.AlignStyle}>
           <div style={styles.StickerStyle}>
             Helyszín:
-            <Input id='place' placeholder='SCH FNT...' />
+            <FormControl>
+              <Input
+                type='text'
+                style={styles.InputStyle}
+                {...register('location', {
+                  required: { value: true, message: 'Helyszín megadása kötelező!' },
+                  maxLength: { value: 30, message: 'Helyszínleírás túl hosszú!' },
+                })}
+                placeholder='SCH FNT...'
+              />
+              {errors.location && <FormErrorMessage>{errors.location.message}</FormErrorMessage>}
+            </FormControl>
           </div>
           <div style={styles.StickerStyle}>
             Tagek:
@@ -102,7 +116,16 @@ export default function newEvent() {
         <div style={styles.AlignStyle}>
           <div style={styles.StickerStyle}>
             Időpont:
-            <Input id='time' placeholder='éééé.hh.nn. óó:pp' />
+            <FormControl>
+              <Input
+                type='datetime-local'
+                style={styles.InputStyle}
+                {...register('date', {
+                  required: { value: true, message: 'Időpont megadása kötelező!' },
+                })}
+              />
+              {errors.date && <FormErrorMessage>{errors.date.message}</FormErrorMessage>}
+            </FormControl>
           </div>
           <div style={styles.StickerStyle}>
             Szervezők:

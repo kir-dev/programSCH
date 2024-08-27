@@ -12,14 +12,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
     "@chakra-ui/react": "^2.8.2",
     "@chakra-ui/system": "^2.6.2",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@tanstack/react-query": "^5.51.15",
     "@tanstack/react-query-devtools": "^5.51.23",
     "axios": "^1.7.2",
     "chakra-ui": "^0.3.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "framer-motion": "^11.3.30",
     "lucide-react": "^0.372.0",
     "next": "14.2.2",
     "react": "^18.2.0",
