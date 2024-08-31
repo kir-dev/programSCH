@@ -1,13 +1,12 @@
 import { Color, Status } from '@/api/model/event.model';
-import { PublicUser } from '@/app/users/types/PublicUser';
 
 export interface CreateEvent {
   name: string;
   description: string;
-  date: Date;
+  date: string;
   location: string;
   tags: string[];
-  //organizerIds: string[];
+  organizerIds: string[];
   color: Color;
   status: Status;
   ownerId: string;
@@ -20,7 +19,7 @@ export type CreateEventForm = {
   date: Date;
   location: string;
   tags: string[];
-  //organizers: PublicUser[];
+  organizerIds: string[];
   color: Color;
   //status: Status;
   link?: string;
