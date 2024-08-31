@@ -1,5 +1,5 @@
 import { Color, Priority, Status } from '@prisma/client';
-import { IsDate, IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsDate, IsDateString, IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class Event {
   @IsString()
@@ -14,7 +14,7 @@ export class Event {
   @IsString()
   description: string;
 
-  @IsDate()
+  @IsDateString()
   date: Date;
 
   @IsString()

@@ -8,9 +8,9 @@ export enum Priority {
 }
 
 export enum Status {
-  CREATED,
-  SUBMITTED,
-  APPROVED,
+  CREATED = 'CREATTED',
+  SUBMITTED = 'SUBMITTED',
+  APPROVED = 'APPROVED',
 }
 
 export enum Color {

@@ -10,17 +10,21 @@ import {
   Select,
   Stack,
   Text,
+  Textarea,
   useToast,
   VStack,
 } from '@chakra-ui/react';
 import { redirect } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import ReactTags from 'react-tag-input/types/components/ReactTags';
+import { TagsInput } from 'react-tag-input-component';
 
 import { useCreateEventMutation } from '@/api/hooks/eventMutationHooks';
 import { Color, EventModel, Status } from '@/api/model/event.model';
 import { CreateEvent, CreateEventForm } from '@/app/events/types/createEvent';
 import { styles } from '@/components/newEventStyles';
 import { FRONTEND_HOST } from '@/util/environment';
-import { useForm } from 'react-hook-form';
 
 export default function newEvent() {
   const { mutate: createEvent } = useCreateEventMutation();
@@ -29,14 +33,19 @@ export default function newEvent() {
       onSuccess: (event: EventModel) => {
         redirect(`${FRONTEND_HOST}/events/${event.id}`);
       },
+      onError: (e: Error) => {
+        throw e;
+      },
     });
   };
 
   const form = useForm<CreateEventForm>({
     defaultValues: {
       tags: [],
+      organizerIds: [],
       date: new Date(),
       color: Color.RED,
+      link: '',
     },
     mode: 'all',
   });
@@ -50,20 +59,41 @@ export default function newEvent() {
     formState: { errors, isValid, isSubmitted },
   } = form;
 
-  const onSubmit = handleSubmit((data: CreateEventForm) => {
+  const onPublish = handleSubmit((data: CreateEventForm) => {
     const formData: CreateEvent = {
       name: data.name,
       description: data.description,
       date: data.date,
       location: data.location,
-      tags: data.tags,
+      tags: tags,
       color: data.color,
       link: data.link,
       ownerId: 'bearni03',
+      organizerIds: data.organizerIds,
       status: Status.SUBMITTED,
+    };
+    console.log(formData);
+    publishEvent(formData);
+  });
+
+  const onSaveDraft = handleSubmit((data: CreateEventForm) => {
+    const formData: CreateEvent = {
+      name: data.name,
+      description: data.description,
+      date: new Date(data.date),
+      location: data.location,
+      tags: tags,
+      color: data.color,
+      link: data.link,
+      ownerId: 'bearni03',
+      organizerIds: organizerIds,
+      status: Status.CREATED,
     };
     publishEvent(formData);
   });
+
+  const [tags, setTags] = useState<string[]>([]);
+  const [organizerIds, setOrganizerIds] = useState<string[]>([]);
 
   return (
     <div>
@@ -74,7 +104,7 @@ export default function newEvent() {
         <div style={styles.AlignStyle}>
           <div style={styles.StickerStyle}>
             Név:
-            <FormControl>
+            <FormControl isInvalid={Boolean(errors.name)} isRequired>
               <Input
                 type='text'
                 style={styles.InputStyle}
@@ -90,6 +120,10 @@ export default function newEvent() {
 
           <div style={styles.StickerStyle} className='p-3'>
             Szín:
+            <FormControl>
+              <Input type='color' className='align-middle' {...register('color', {})} />
+              {errors.color && <FormErrorMessage>{errors.color.message}</FormErrorMessage>}
+            </FormControl>
           </div>
         </div>
         <div style={styles.AlignStyle}>
@@ -110,7 +144,7 @@ export default function newEvent() {
           </div>
           <div style={styles.StickerStyle}>
             Tagek:
-            <Input id='tags' placeholder='#gólyák, ...' />
+            <TagsInput value={tags} onChange={setTags} name='tags' placeHolder='Enter tags' />
           </div>
         </div>
         <div style={styles.AlignStyle}>
@@ -121,7 +155,7 @@ export default function newEvent() {
                 type='datetime-local'
                 style={styles.InputStyle}
                 {...register('date', {
-                  required: { value: true, message: 'Időpont megadása kötelező!' },
+                  //required: { value: true, message: 'Időpont megadása kötelező!' },
                 })}
               />
               {errors.date && <FormErrorMessage>{errors.date.message}</FormErrorMessage>}
@@ -129,18 +163,40 @@ export default function newEvent() {
           </div>
           <div style={styles.StickerStyle}>
             Szervezők:
-            <Input id='organizers' placeholder='Kir Dev, ...' />
+            <TagsInput value={organizerIds} onChange={setOrganizerIds} name='organizerIds' placeHolder='bearni03' />
           </div>
         </div>
         <div className='rounded-2xl border-2 border-dark-green ml-10 mt-6 w-11/12 text-xl bg-light-green p-2 pl-3 h-64'>
           Leírás:
           <div className='mt-1 h-48 mr-1'>
-            <input id='description' placeholder='...' className='h-48' style={styles.InputStyle} />
+            <FormControl isInvalid={Boolean(errors.description)} isRequired>
+              <Input
+                type='text'
+                style={styles.InputStyle}
+                className='h-48'
+                {...register('description', { required: 'Leírás megadása kötelező!' })}
+                placeholder='...'
+              />
+            </FormControl>
           </div>
         </div>
         <div className='flex justify-between ml-10 mt-7 w-11/12'>
-          <Button type='button'>Piszkozat mentése</Button>
-          <Button type='button'>Létrehozás </Button>
+          <Button
+            className='rounded-2xl border-4 border-dark-green text-xl bg-light-green p-2 w-60 text-center'
+            onClick={() => {
+              onSaveDraft();
+            }}
+          >
+            Piszkozat mentése
+          </Button>
+          <Button
+            className='rounded-2xl border-4 border-dark-green text-xl bg-light-green p-2 w-60 text-center'
+            onClick={() => {
+              onPublish();
+            }}
+          >
+            Létrehozás
+          </Button>
         </div>
       </div>
     </div>
