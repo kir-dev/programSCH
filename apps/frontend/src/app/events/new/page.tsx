@@ -63,7 +63,7 @@ export default function newEvent() {
     const formData: CreateEvent = {
       name: data.name,
       description: data.description,
-      date: data.date,
+      date: new Date(data.date).toISOString(),
       location: data.location,
       tags: tags,
       color: data.color,
@@ -80,7 +80,7 @@ export default function newEvent() {
     const formData: CreateEvent = {
       name: data.name,
       description: data.description,
-      date: new Date(data.date),
+      date: new Date(data.date).toISOString(),
       location: data.location,
       tags: tags,
       color: data.color,

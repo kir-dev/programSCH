@@ -3,7 +3,7 @@ import { Color, Status } from '@/api/model/event.model';
 export interface CreateEvent {
   name: string;
   description: string;
-  date: Date;
+  date: string;
   location: string;
   tags: string[];
   organizerIds: string[];
