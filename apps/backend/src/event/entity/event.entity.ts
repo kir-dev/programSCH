@@ -35,6 +35,7 @@ export class Event {
   color: Color;
 
   @IsNotEmpty()
+  @IsEnum(Status)
   status: Status;
 
   @IsString()

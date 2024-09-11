@@ -1,0 +1,3 @@
+Event.messages: legyen látható hogy ki írta?
+                ezt akkor csak külön relációval lehetne hatékonyan
+
