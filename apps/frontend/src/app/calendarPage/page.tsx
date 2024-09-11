@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { styles } from '@/components/calendarStyles';
 
 // Segédfüggvények
 const daysInWeek = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+const shortDaysInWeek = ['H', 'K', 'Sz', 'Cs', 'P', 'Sz', 'V'];
+
 const monthNames = [
   'Január',
   'Február',
@@ -26,20 +28,35 @@ const getDaysInMonth = (month: number, year: number) => {
 };
 
 const getFirstDayOfMonth = (month: number, year: number) => {
-  return new Date(year, month, 1).getDay();
+  const day = new Date(year, month, 1).getDay();
+  return day === 0 ? 7 : day;
 };
 
 // Calendar komponens
 const Calendar: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(7); // Augusztus
   const [currentYear, setCurrentYear] = useState(2024); // 2024
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Ellenőrizze, hogy mobilon vagyunk-e
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Csak egyszer hívjuk meg, amikor a komponens betöltődik
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const daysInMonth = getDaysInMonth(currentMonth, currentYear);
   const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear);
 
   const handlePrevMonth = () => {
     if (currentMonth === 0) {
-      // Ha január van, lépj vissza decemberre és csökkentsd az évet
       setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
     } else {
@@ -49,7 +66,6 @@ const Calendar: React.FC = () => {
 
   const handleNextMonth = () => {
     if (currentMonth === 11) {
-      // Ha december van, lépj előre januárra és növeld az évet
       setCurrentMonth(0);
       setCurrentYear(currentYear + 1);
     } else {
@@ -68,7 +84,7 @@ const Calendar: React.FC = () => {
     // A hónap napjai
     for (let i = 1; i <= daysInMonth; i++) {
       days.push(
-        <div style={styles.day} key={i}>
+        <div style={styles.day} key={`day-${i}`}>
           <div className='text-xs text-gray-700 font-bold'>{i}</div>
         </div>
       );
@@ -97,8 +113,9 @@ const Calendar: React.FC = () => {
       </div>
       <div>
         <div style={styles.grid}>
-          {daysInWeek.map((day) => (
-            <div style={styles.dayName} key={day}>
+          {(isMobile ? shortDaysInWeek : daysInWeek).map((day, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div style={styles.dayName} key={`dayName-${index}`}>
               {day}
             </div>
           ))}

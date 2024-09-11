@@ -3,7 +3,13 @@ export const styles = {
     marginTop: '1.25rem',
     width: '91.666667%',
     marginLeft: '4rem',
+    marginRight: '4rem',
     fontFamily: 'sans-serif',
+    '@media (max-width: 600px)': {
+      marginLeft: '1rem',
+      marginRight: '1rem',
+      width: '95%',
+    },
   },
   calendarHeader: {
     display: 'flex',
