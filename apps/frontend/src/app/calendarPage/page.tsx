@@ -1,3 +1,7 @@
+'use client';
+
+import React, { useState } from 'react';
+
 import { styles } from '@/components/calendarStyles';
 
 // Segédfüggvények
@@ -27,11 +31,31 @@ const getFirstDayOfMonth = (month: number, year: number) => {
 
 // Calendar komponens
 const Calendar: React.FC = () => {
-  const currentMonth = 7; // Augusztus
-  const currentYear = 2024; // 2024
+  const [currentMonth, setCurrentMonth] = useState(7); // Augusztus
+  const [currentYear, setCurrentYear] = useState(2024); // 2024
 
   const daysInMonth = getDaysInMonth(currentMonth, currentYear);
   const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear);
+
+  const handlePrevMonth = () => {
+    if (currentMonth === 0) {
+      // Ha január van, lépj vissza decemberre és csökkentsd az évet
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      // Ha december van, lépj előre januárra és növeld az évet
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
 
   const renderDays = () => {
     const days = [];
@@ -63,9 +87,13 @@ const Calendar: React.FC = () => {
   return (
     <div style={styles.calendarContainer}>
       <div style={styles.calendarHeader}>
-        <button style={styles.button}>{'<'}</button>
+        <button style={styles.button} onClick={handlePrevMonth}>
+          {'<'}
+        </button>
         <div style={styles.monthLabel}>{monthNames[currentMonth]}</div>
-        <button style={styles.button}>{'>'}</button>
+        <button style={styles.button} onClick={handleNextMonth}>
+          {'>'}
+        </button>
       </div>
       <div>
         <div style={styles.grid}>

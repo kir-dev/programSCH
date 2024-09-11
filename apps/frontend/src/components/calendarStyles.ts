@@ -8,9 +8,10 @@ export const styles = {
   calendarHeader: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: '0.625rem',
     borderRadius: '0.5rem',
-    width: '11rem',
+    width: '12.5rem',
     padding: '0.25rem',
     backgroundColor: '#7eb397',
     borderColor: '#18633d',
@@ -23,6 +24,7 @@ export const styles = {
     paddingBottom: '0.25rem',
     fontSize: '1.125rem',
     fontWeight: 'bold',
+    cursor: 'pointer',
   },
   monthLabel: {
     fontSize: '1.25rem',
