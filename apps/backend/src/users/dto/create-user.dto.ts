@@ -1,5 +1,5 @@
 import { OmitType } from '@nestjs/swagger';
 
-import { UserEntity } from '../entities/user.entity';
+import { User } from '../entities/user.entity';
 
-export class CreateUserDto extends OmitType(UserEntity, ['isAdmin']) {}
+export class CreateUserDto extends OmitType(User, ['isAdmin']) {}

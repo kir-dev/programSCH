@@ -4,31 +4,28 @@ import { PrismaService } from 'nestjs-prisma';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserEntity } from './entities/user.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateUserDto): Promise<UserEntity> {
+  async create(data: CreateUserDto): Promise<User> {
     try {
       return await this.prisma.user.create({ data });
     } catch (error) {
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException('Invalid User data');
       }
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') throw new BadRequestException(`Invalid User data: email already in use`);
-      }
       throw error;
     }
   }
 
-  async findAll(): Promise<UserEntity[]> {
+  async findAll(): Promise<User[]> {
     return this.prisma.user.findMany();
   }
 
-  async findOne(id: string): Promise<UserEntity> {
+  async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { authSchId: id } });
     if (user === null) {
       throw new NotFoundException('User not found');
@@ -36,13 +33,12 @@ export class UsersService {
     return user;
   }
 
-  async update(id: string, data: UpdateUserDto): Promise<UserEntity> {
+  async update(id: string, data: UpdateUserDto): Promise<User> {
     try {
       return await this.prisma.user.update({ where: { authSchId: id }, data });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') throw new BadRequestException(`Invalid data: email already in use`);
-        if (error.code === 'P2025') throw new NotFoundException(`User not found`);
+        throw new NotFoundException(`User not found`);
       }
       if (error instanceof PrismaClientValidationError) {
         throw new BadRequestException(`Invalid data`);
@@ -51,7 +47,7 @@ export class UsersService {
     }
   }
 
-  async delete(id: string): Promise<UserEntity> {
+  async delete(id: string): Promise<User> {
     try {
       return await this.prisma.user.delete({ where: { authSchId: id } });
     } catch {
