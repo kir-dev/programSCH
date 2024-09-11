@@ -12,7 +12,7 @@ function Navbar() {
           <Image src='/logo.png' alt='Logo' width={50} height={50} title='by KirDev' />
         </div>
         <div className='font-bold text-3xl no-underline text-gray-900 text-center mt-1'>
-          <a href='/home' title='Kezdőlap'>
+          <a href='/calendarPage' title='Kezdőlap'>
             ProgramSCH
           </a>
         </div>
